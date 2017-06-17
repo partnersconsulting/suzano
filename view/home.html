@@ -18,10 +18,7 @@
                     <dd>22.05.2017</dd>
                     <dt>Status Fatura</dt>
                     <dd>REALIZADO</dd>
-                    <dt>ULT. REG.</dt>
-                    <dd>23423</dd>
-                    <dt>PEDIDO TELA</dt>
-                    <dd>122354</dd>
+                    
                 </dl>
             </div>
             <div class="col-xs-6">
@@ -30,17 +27,14 @@
                     <dd>LIBERADO</dd>
                     <dt>Valor fatura</dt>
                     <dd>R$ 254.545,00</dd>
-                    <dt>DATA REG.</dt>
-                    <dd>10/05/2017</dd>
-                    <dt>DATA FAT</dt>
-                    <dd>20/05</dd>
+                    
                 </dl>
             </div>
         </div>
         <table class="table table-hover table-info">
             <thead>
                 <tr>
-                    <th>$</th>
+                    <th></th>
                     <th>Limite Crédito</th>
                     <th>Utilizado</th>
                     <th>Disponível</th>
@@ -48,16 +42,16 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>VC</td>
-                    <td contenteditable="true">12</td>
-                    <td contenteditable="true">8</td>
-                    <td contenteditable="true">2</td>
+                    <td>Facilidade</td>
+                    <td contenteditable="true">R$ 120.000,00</td>
+                    <td contenteditable="true">R$ 80.000,00</td>
+                    <td contenteditable="true">R$ 40.000,00</td>
                 </tr>
                 <tr>
-                    <td>VCMAIS</td>
-                    <td contenteditable="true">5</td>
-                    <td contenteditable="true">3</td>
-                    <td contenteditable="true">1</td>
+                    <td>Mercantil</td>
+                    <td contenteditable="true">R$ 500.000,00</td>
+                    <td contenteditable="true">R$ 300.000,00</td>
+                    <td contenteditable="true">R$ 200.000,00</td>
                 </tr>
             </tbody>
         </table>
@@ -82,20 +76,11 @@
             </tbody>
         </table>
     </panel>
-    <panel ng-if="windows[2].enable" title="ÚLTIMAS PESQUISAS" icon="fa-search" height="50" col="4" size="sm" panelclass="panel-success">
+    <panel ng-if="windows[2].enable" title="OFERTAS" icon="fa-search" height="50" col="4" size="sm" panelclass="panel-success">
         <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Data</th>
-                    <th>Resumo</th>
-                </tr>
-            </thead>
             <tbody>
-                <tr ng-repeat="pesquisa in pesquisas | filter:filtro3">
-                    <td>{{pesquisa.id}}</td>
-                    <td>{{pesquisa.data}}</td>
-                    <td>{{pesquisa.resumo}}</td>
+                <tr ng-repeat="oferta in ofertas">
+                    <td><img class="img-responsive" src="{{oferta.url}}"></td>
                 </tr>
             </tbody>
         </table>
@@ -104,12 +89,13 @@
         <div class="input-group input-group-sm">
             <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"
                                                                           aria-hidden="true"></i></span>
-            <input type="text" class="form-control" placeholder="busca processos" aria-describedby="sizing-addon1" ng-model="filtro1">
+            <input type="text" class="form-control" placeholder="busca" aria-describedby="sizing-addon1" ng-model="filtro1">
         </div>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>#</th>
+                    <th>Tipo</th>
                     <th>Data/hora</th>
                     <th>Status</th>
                     <th class="width-max-50">ITENS</th>
@@ -118,6 +104,7 @@
             <tbody>
                 <tr ng-repeat="pedido in pedidos | filter:filtro1">
                     <td>{{pedido.id}}</td>
+                    <td>{{pedido.tipo}}</td>
                     <td>{{pedido.data}}</td>
                     <td>{{pedido.status}}</td>
                     <td class="width-max-50">{{pedido.resumo}}</td>
@@ -129,7 +116,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Produto</th>
+                    <th>Categoria</th>
                     <th>Média</th>
                     <th>Variação</th>
                     <th>M1</th>
@@ -155,27 +142,32 @@
             </tbody>
         </table>
     </panel>
-    <panel ng-if="windows[5].enable" title="FATURAMENTO POR QUANTIDADE" icon="fa-hashtag" height="50" col="4" panelclass="panel-warning" size="sm">
-        <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
-            <chart-size chart-height="160" />
-            <chart-axes values-x="x" />
-            <chart-axis>
-                <chart-axis-x axis-position="outer-center" axis-label="Dados Mercado" axis-type="category" />
-            </chart-axis>
-            <chart-bar ratio="0.8" />
-        </c3chart>
+    <panel ng-if="windows[5].enable" title="MATERIAIS RECOMENDADOS" icon="fa-hashtag" height="50" col="4" panelclass="panel-warning" size="sm">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>COD</th>
+                    <th>Tamanho</th>
+                    <th>kg</th>
+                    <th>$</th>
+                    <th>Última compra</th>
+                    <th>Próxima compra</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fatura in materiaisRecomendados | filter:filtro1">
+                    <td>{{fatura.produto}}</td>
+                    <td>{{fatura.m1}}</td>
+                    <td>{{fatura.m2}}</td>
+                    <td>{{fatura.m3}}</td>
+                    <td>{{fatura.m4}}</td>
+                    <td>{{fatura.m5}}</td>
+                </tr>
+            </tbody>
+        </table>
     </panel>
-    <panel ng-if="windows[6].enable" title="XPTO1" icon="fa-hashtag" height="50" col="4" panelclass="panel-success" size="sm">
-        <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
-            <chart-size chart-height="160" />
-            <chart-axes values-x="x" />
-            <chart-axis>
-                <chart-axis-x axis-position="outer-center" axis-label="Dados Mercado" axis-type="category" />
-            </chart-axis>
-            <chart-bar ratio="0.8" />
-        </c3chart>
-    </panel>
-    <panel ng-if="windows[7].enable" title="XPTO2" icon="fa-hashtag" height="50" col="4" panelclass="panel-danger" size="sm">
+
+    <panel ng-if="windows[6].enable" title="FATURAMENTO POR QUANTIDADE" icon="fa-hashtag" height="50" col="4" panelclass="panel-danger" size="sm">
         <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
             <chart-size chart-height="160" />
             <chart-axes values-x="x" />

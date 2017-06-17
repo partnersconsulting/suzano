@@ -2,14 +2,13 @@ angular.module("App.controllers", [])
     .controller("HomeController", function($scope, $rootScope, $location, $uibModal) {
 
         $rootScope.windows = [
-            { name: "window0", enable: true },
-            { name: "window1", enable: true },
-            { name: "window2", enable: true },
-            { name: "window3", enable: true },
-            { name: "window4", enable: true },
-            { name: "window5", enable: true },
-            { name: "window6", enable: false },
-            { name: "window7", enable: false }
+            { name: "Dados Crédito", enable: true },
+            { name: "Últimas Interações", enable: true },
+            { name: "Ofertas", enable: true },
+            { name: "Últimas Cotações / Pedidos", enable: true },
+            { name: "Faturamento por Tonelada", enable: true },
+            { name: "Materiais Recomendados", enable: true },
+            { name: "Faturamento por Quantidade", enable: false }
         ];
 
 
@@ -234,8 +233,36 @@ angular.module("App.controllers", [])
 
         ]
 
+
+        $rootScope.materiaisRecomendados = [
+            {
+                produto: "20004901",
+                m1: "0760 x 1120",
+                m2: "355KG",
+                m3: "$ 4,78",
+                m4: "15/03",
+                m5: "15/06"
+            },
+            {
+                produto: "20049459",
+                m1: "0660 x 0960",
+                m2: "150KG",
+                m3: "$ 5,60",
+                m4: "15/03",
+                m5: "15/06"
+            },
+            {
+                produto: "20008547",
+                m1: "2092 x 4409",
+                m2: "227KG",
+                m3: "$ 12,10",
+                m4: "20/04",
+                m5: "20/06"
+            }
+        ]
+
         $rootScope.faturaTon = [{
-                produto: "Cimentos",
+                produto: "Não Revestidos",
                 m1: 10,
                 m2: 15,
                 m3: 20,
@@ -243,7 +270,7 @@ angular.module("App.controllers", [])
                 m5: 25,
                 m6: 30
             }, {
-                produto: "Colantes",
+                produto: "Embalagens",
                 m1: 8,
                 m2: 12,
                 m3: 22,
@@ -251,7 +278,7 @@ angular.module("App.controllers", [])
                 m5: 44,
                 m6: 55
             }, {
-                produto: "Básicas",
+                produto: "Revestidos",
                 m1: 22,
                 m2: 30,
                 m3: 40,
@@ -259,40 +286,47 @@ angular.module("App.controllers", [])
                 m5: 66,
                 m6: 70
             }, {
-                produto: "Cales",
+                produto: "Para Escrever",
                 m1: 9,
                 m2: 22,
                 m3: 23,
                 m4: 25,
                 m5: 20,
                 m6: 31
-            }, {
-                produto: "Agregados",
-                m1: 15,
-                m2: 30,
-                m3: 45,
-                m4: 40,
-                m5: 50,
-                m6: 60
             }
-
         ]
 
+        $rootScope.ofertas = [
+            {url: "view/images/prod1.png"},
+            {url: "view/images/prod2.png"},
+            {url: "view/images/prod3.png"},
+            {url: "view/images/prod4.png"}
+        ];
+
         $rootScope.pedidos = [{
-            id: 9000000270,
+            id: 9000270,
             data: "11.05.17 15:13",
+            tipo: "COT",
             status: "REALIZADO",
-            resumo: "VOTOMASSA / VOTORAN OBRAS ESPECIAIS"
+            resumo: "PAPEL ALTA ALVURA ALCALINO, PAPEL PAPERFECT OFFSET, PAPEL REPORT PREMIUM"
         }, {
-            id: 9000000227,
+            id: 9000227,
             data: "18.04.17 12:44",
+            tipo: "PED",
             status: "FATURADO",
-            resumo: "VOTORAN OBRAS ESPECIAIS / CAL HIDRATADA / VOTORAN OBRAS ESTRUTURAIS"
+            resumo: "PAPEL PAPERFECT OFFSET, PAPEL ALTA ALVURA ALCALINO"
         }, {
-            id: 9000000214,
+            id: 9000214,
             data: "18.04.17 17:55",
+            tipo: "PED",
             status: "ENTREGUE",
-            resumo: "VOTORAN OBRAS ESPECIAIS / CAL HIDRATADA / VOTORAN OBRAS ESTRUTURAIS"
+            resumo: "PAPEL REPORT PREMIUM, PAPEL PAPERFECT OFFSET"
+        }, {
+            id: 9000199,
+            data: "18.03.17 17:55",
+            tipo: "COT",
+            status: "CANCELADO",
+            resumo: "PAPEL COUCHE FIT GLOSS, PAPEL REPORT PREMIUM"
         }];
 
     });
