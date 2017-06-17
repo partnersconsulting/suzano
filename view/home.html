@@ -1,11 +1,16 @@
-<div class="row">
-    <div class="col-md-12"><img src="view/images/suzano1.png"></div>
+<div class="row header-suzano">
+    <div class="col-sm-11">
+    <a class="btn btn-xs btn-warning btn-min-alert" href="#" role="button" ng-click="openPop()"><i class="fa fa-bell" aria-hidden="true"> alertas</i></a>
+    </div>
+    <div class="col-sm-1">
+        <a ng-click="config()">
+            <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+        </a>
+    </div>
 </div>
 <div class="row">
-    <panel title="DADOS CRÉDITO" icon="fa-usd" height="50" col="4" size="sm" panelclass="panel-danger">
-        <panel-actions>
-            <a class="btn btn-xs btn-warning btn-min-alert" href="#" role="button" ng-click="openPop()"><i class="fa fa-bell" aria-hidden="true"> alertas</i></a>
-        </panel-actions>
+    <panel ng-if="windows[0].enable" title="DADOS CRÉDITO" icon="fa-usd" height="50" col="4" size="sm" panelclass="panel-danger">
+
         <div class="row">
             <div class="col-xs-6">
                 <dl class="dl-flex">
@@ -23,8 +28,8 @@
                 <dl class="dl-flex">
                     <dt>Status Crédito</dt>
                     <dd>LIBERADO</dd>
-                    <dt>Categoria</dt>
-                    <dd>none</dd>
+                    <dt>Valor fatura</dt>
+                    <dd>R$ 254.545,00</dd>
                     <dt>DATA REG.</dt>
                     <dd>10/05/2017</dd>
                     <dt>DATA FAT</dt>
@@ -57,9 +62,8 @@
             </tbody>
         </table>
     </panel>
-    <panel title="ÚLTIMAS INTERAÇÕES" icon="fa-exchange" height="50" col="4" size="sm">
+    <panel ng-if="windows[1].enable" title="ÚLTIMAS INTERAÇÕES" icon="fa-exchange" height="50" col="4" size="sm">
         <table class="table table-hover">
-            <!-- <caption>Monthly Kills</caption> -->
             <thead>
                 <tr>
                     <th>#</th>
@@ -70,7 +74,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat="interacao in interacoes | filter:filtro2">
-                    <!-- <td contenteditable="true">12</td> -->
                     <td>{{interacao.id}}</td>
                     <td>{{interacao.data}}</td>
                     <td>{{interacao.status}}</td>
@@ -79,9 +82,8 @@
             </tbody>
         </table>
     </panel>
-    <panel title="ÚLTIMAS PESQUISAS" icon="fa-search" height="50" col="4" size="sm" panelclass="panel-success">
+    <panel ng-if="windows[2].enable" title="ÚLTIMAS PESQUISAS" icon="fa-search" height="50" col="4" size="sm" panelclass="panel-success">
         <table class="table table-hover">
-            <!-- <caption>Monthly Kills</caption> -->
             <thead>
                 <tr>
                     <th>#</th>
@@ -91,7 +93,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat="pesquisa in pesquisas | filter:filtro3">
-                    <!-- <td contenteditable="true">12</td> -->
                     <td>{{pesquisa.id}}</td>
                     <td>{{pesquisa.data}}</td>
                     <td>{{pesquisa.resumo}}</td>
@@ -99,16 +100,13 @@
             </tbody>
         </table>
     </panel>
-</div>
-<div class="row">
-    <panel title="ÚLTIMAS COTAÇÕES/ PEDIDOS" icon="fa-file-text-o" height="50" col="4" panelclass="panel-info" size="sm">
+    <panel ng-if="windows[3].enable" title="ÚLTIMAS COTAÇÕES/ PEDIDOS" icon="fa-file-text-o" height="50" col="4" panelclass="panel-info" size="sm">
         <div class="input-group input-group-sm">
             <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"
                                                                           aria-hidden="true"></i></span>
             <input type="text" class="form-control" placeholder="busca processos" aria-describedby="sizing-addon1" ng-model="filtro1">
         </div>
         <table class="table table-hover">
-            <!-- <caption>Monthly Kills</caption> -->
             <thead>
                 <tr>
                     <th>#</th>
@@ -119,7 +117,6 @@
             </thead>
             <tbody>
                 <tr ng-repeat="pedido in pedidos | filter:filtro1">
-                    <!-- <td contenteditable="true">12</td> -->
                     <td>{{pedido.id}}</td>
                     <td>{{pedido.data}}</td>
                     <td>{{pedido.status}}</td>
@@ -128,9 +125,8 @@
             </tbody>
         </table>
     </panel>
-    <panel title="FATURAMENTO POR TONELADA" icon="fa-truck" height="50" col="4" size="sm" panelclass="panel-warning">
+    <panel ng-if="windows[4].enable" title="FATURAMENTO POR TONELADA" icon="fa-truck" height="50" col="4" size="sm" panelclass="panel-warning">
         <table class="table table-hover">
-            <!-- <caption>Monthly Kills</caption> -->
             <thead>
                 <tr>
                     <th>Produto</th>
@@ -159,7 +155,27 @@
             </tbody>
         </table>
     </panel>
-    <panel title="FATURAMENTO POR QUANTIDADE" icon="fa-hashtag" height="50" col="4" panelclass="panel-warning" size="sm">
+    <panel ng-if="windows[5].enable" title="FATURAMENTO POR QUANTIDADE" icon="fa-hashtag" height="50" col="4" panelclass="panel-warning" size="sm">
+        <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
+            <chart-size chart-height="160" />
+            <chart-axes values-x="x" />
+            <chart-axis>
+                <chart-axis-x axis-position="outer-center" axis-label="Dados Mercado" axis-type="category" />
+            </chart-axis>
+            <chart-bar ratio="0.8" />
+        </c3chart>
+    </panel>
+    <panel ng-if="windows[6].enable" title="XPTO1" icon="fa-hashtag" height="50" col="4" panelclass="panel-success" size="sm">
+        <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
+            <chart-size chart-height="160" />
+            <chart-axes values-x="x" />
+            <chart-axis>
+                <chart-axis-x axis-position="outer-center" axis-label="Dados Mercado" axis-type="category" />
+            </chart-axis>
+            <chart-bar ratio="0.8" />
+        </c3chart>
+    </panel>
+    <panel ng-if="windows[7].enable" title="XPTO2" icon="fa-hashtag" height="50" col="4" panelclass="panel-danger" size="sm">
         <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
             <chart-size chart-height="160" />
             <chart-axes values-x="x" />

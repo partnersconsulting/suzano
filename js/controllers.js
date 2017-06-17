@@ -1,17 +1,57 @@
 angular.module("App.controllers", [])
-    .controller("HomeController", function($scope, $rootScope, $location, $uibModal)
-    {
+    .controller("HomeController", function($scope, $rootScope, $location, $uibModal) {
 
-        $scope.items = [
-        {
+        $rootScope.windows = [
+            { name: "window0", enable: true },
+            { name: "window1", enable: true },
+            { name: "window2", enable: true },
+            { name: "window3", enable: true },
+            { name: "window4", enable: true },
+            { name: "window5", enable: true },
+            { name: "window6", enable: false },
+            { name: "window7", enable: false }
+        ];
+
+
+        $scope.config = function() {
+            $rootScope.open('md', '', 'view/modal/config.html', '');
+        }
+
+        $rootScope.selecteds = 0;
+
+        $rootScope.select = function(box) {
+            if (box){
+                box.enable = !box.enable;
+            }
+            $rootScope.selecteds = 0;
+
+            angular.forEach($rootScope.windows, function(value, key) {
+                if (value.enable) {
+                    $rootScope.selecteds++;
+                }
+            });
+            console.log(">> " + $rootScope.selecteds);
+        }
+
+        $rootScope.select();
+
+        $rootScope.getEnabled = function(box) {
+            if (!box.enable) {
+                if ($rootScope.selecteds > 5) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+        $scope.items = [{
             href: "#/cliente",
             label: 'cliente!'
-        },
-        {
+        }, {
             href: "#/tela3",
             label: 'tela3.'
-        },
-        {
+        }, {
             href: "#/simulacoes",
             label: 'termometro'
         }];
@@ -22,62 +62,55 @@ angular.module("App.controllers", [])
 
         $scope.toggled = function(open) {};
 
-        $scope.toggleDropdown = function($event)
-        {
+        $scope.toggleDropdown = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
             $scope.status.isopen = !$scope.status.isopen;
         };
 
 
-        $rootScope.dadosGraficos = [
-        {
+        $rootScope.dadosGraficos = [{
             "x": "mês1",
             "cim": 47,
             "col": 12,
             "bas": 6,
             "cal": 21,
             "agr": 23
-        },{
+        }, {
             "x": "mês2",
             "cim": 55,
             "col": 22,
             "bas": 11,
             "cal": 22,
             "agr": 27
-        },{
+        }, {
             "x": "mês3",
             "cim": 66,
             "col": 33,
             "bas": 15,
             "cal": 35,
             "agr": 45
-        }]; 
+        }];
 
 
 
-        $rootScope.dadosGraficosColunas = [
-        {
+        $rootScope.dadosGraficosColunas = [{
             "id": "cim",
             "type": "bar",
             "name": "cimentos"
-        },
-        {
+        }, {
             "id": "col",
             "type": "bar",
             "name": "colantes"
-        },
-        {
+        }, {
             "id": "bas",
             "type": "bar",
             "name": "básicas"
-        },
-        {
+        }, {
             "id": "cal",
             "type": "bar",
             "name": "cales"
-        },
-        {
+        }, {
             "id": "agr",
             "type": "bar",
             "name": "agregados"
@@ -91,30 +124,27 @@ angular.module("App.controllers", [])
             $rootScope.open('md', '', 'view/modal/pedido.html', '');
         }
 
-        $scope.openPop();
-        
-    })
-    .controller("ModalInstanceCtrl", function($scope, $rootScope, $filter, $uibModal, $document, $location, $uibModalInstance)
-    {
 
-        $scope.cancel = function()
-        {
+
+        $scope.openPop();
+
+    })
+    .controller("ModalInstanceCtrl", function($scope, $rootScope, $filter, $uibModal, $document, $location, $uibModalInstance) {
+
+        $scope.cancel = function() {
             $uibModalInstance.dismiss('cancel');
         };
 
     })
-    .controller("MainController", function($scope, $rootScope, $filter, $uibModal, $document, $location)
-    {
+    .controller("MainController", function($scope, $rootScope, $filter, $uibModal, $document, $location) {
 
-        $rootScope.open = function(size, parentSelector, page, tipo)
-        {
+        $rootScope.open = function(size, parentSelector, page, tipo) {
 
             var r = '?n=' + Math.random();
 
             var parentElem = parentSelector ?
                 angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-            var modalInstance = $uibModal.open(
-            {
+            var modalInstance = $uibModal.open({
                 animation: true,
                 ariaLabelledBy: 'modal-title',
                 ariaDescribedBy: 'modal-body',
@@ -123,10 +153,8 @@ angular.module("App.controllers", [])
                 controllerAs: '$ctrl',
                 size: size,
                 appendTo: parentElem,
-                resolve:
-                {
-                    items: function()
-                    {
+                resolve: {
+                    items: function() {
                         return [];
                     }
                 }
@@ -135,18 +163,15 @@ angular.module("App.controllers", [])
         };
 
 
-        $rootScope.pesquisas = [
-            {
+        $rootScope.pesquisas = [{
                 id: 652323,
                 data: "01.04.2017 - 08:22",
                 resumo: "O cliente não efetuou compras nos últimos 3 meses, porém agora demonstra interesse de produtos para obras especiais."
-            },
-            {
+            }, {
                 id: 652434,
                 data: "02.04.2017 - 10:52",
                 resumo: "Sem dados"
-            },
-            {
+            }, {
                 id: 652434,
                 data: "03.04.2017 - 11:11",
                 resumo: "Sem dados"
@@ -156,32 +181,28 @@ angular.module("App.controllers", [])
 
 
 
-        $rootScope.interacoes = [
-        {
+        $rootScope.interacoes = [{
             id: 6478,
             data: "01.04.2017 - 08:22",
             status: "Aberto",
             tipoId: "1",
             tipo: "LIGACAO IN",
             resumo: "Informações de crédito para novas compras."
-        },
-        {
+        }, {
             id: 6455,
             data: "02.04.2017 - 10:52",
             status: "Fechado",
             tipoId: "2",
             tipo: "LIGACAO OUT",
             resumo: "Cliente solicitou informação sobre produto Votomassa."
-        },
-        {
+        }, {
             id: 6155,
             data: "05.04.2017 - 11:11",
             status: "Aberto",
             tipoId: "1",
             tipo: "LIGACAO IN",
             resumo: "Contato do cliente via Chat solicitando visita de vendedor externo."
-        },
-        {
+        }, {
             id: 6331,
             data: "10.04.2017 - 13:20",
             status: "Fechado",
@@ -196,35 +217,24 @@ angular.module("App.controllers", [])
 
 
 
-        $rootScope.skus = [
-            {
+        $rootScope.skus = [{
                 id: "SGG-76567576"
-            },
-            {
+            }, {
                 id: "SGG-24434"
-            }
-            ,
-            {
+            }, {
                 id: "CIG-4343"
-            }
-            ,
-            {
+            }, {
                 id: "CIG-2223"
-            }
-            ,
-            {
+            }, {
                 id: "CIM-43243"
-            }
-            ,
-            {
+            }, {
                 id: "CIM-312321"
             }
-            
+
 
         ]
 
-        $rootScope.faturaTon = [
-            {
+        $rootScope.faturaTon = [{
                 produto: "Cimentos",
                 m1: 10,
                 m2: 15,
@@ -232,8 +242,7 @@ angular.module("App.controllers", [])
                 m4: 18,
                 m5: 25,
                 m6: 30
-            },
-             {
+            }, {
                 produto: "Colantes",
                 m1: 8,
                 m2: 12,
@@ -241,8 +250,7 @@ angular.module("App.controllers", [])
                 m4: 35,
                 m5: 44,
                 m6: 55
-            },
-             {
+            }, {
                 produto: "Básicas",
                 m1: 22,
                 m2: 30,
@@ -250,8 +258,7 @@ angular.module("App.controllers", [])
                 m4: 50,
                 m5: 66,
                 m6: 70
-            },
-             {
+            }, {
                 produto: "Cales",
                 m1: 9,
                 m2: 22,
@@ -259,8 +266,7 @@ angular.module("App.controllers", [])
                 m4: 25,
                 m5: 20,
                 m6: 31
-            },
-             {
+            }, {
                 produto: "Agregados",
                 m1: 15,
                 m2: 30,
@@ -272,20 +278,17 @@ angular.module("App.controllers", [])
 
         ]
 
-        $rootScope.pedidos = [
-        {
+        $rootScope.pedidos = [{
             id: 9000000270,
             data: "11.05.17 15:13",
             status: "REALIZADO",
             resumo: "VOTOMASSA / VOTORAN OBRAS ESPECIAIS"
-        },
-        {
+        }, {
             id: 9000000227,
             data: "18.04.17 12:44",
             status: "FATURADO",
             resumo: "VOTORAN OBRAS ESPECIAIS / CAL HIDRATADA / VOTORAN OBRAS ESTRUTURAIS"
-        },
-        {
+        }, {
             id: 9000000214,
             data: "18.04.17 17:55",
             status: "ENTREGUE",
