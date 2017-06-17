@@ -1,0 +1,172 @@
+<div class="row">
+    <div class="col-md-12"><img src="/view/images/suzano1.png"></div>
+</div>
+<div class="row">
+    <panel title="DADOS CRÉDITO" icon="fa-usd" height="50" col="4" size="sm" panelclass="panel-danger">
+        <panel-actions>
+            <a class="btn btn-xs btn-warning btn-min-alert" href="#" role="button" ng-click="openPop()"><i class="fa fa-bell" aria-hidden="true"> alertas</i></a>
+        </panel-actions>
+        <div class="row">
+            <div class="col-xs-6">
+                <dl class="dl-flex">
+                    <dt>Última Fatura</dt>
+                    <dd>22.05.2017</dd>
+                    <dt>Status Fatura</dt>
+                    <dd>REALIZADO</dd>
+                    <dt>ULT. REG.</dt>
+                    <dd>23423</dd>
+                    <dt>PEDIDO TELA</dt>
+                    <dd>122354</dd>
+                </dl>
+            </div>
+            <div class="col-xs-6">
+                <dl class="dl-flex">
+                    <dt>Status Crédito</dt>
+                    <dd>LIBERADO</dd>
+                    <dt>Categoria</dt>
+                    <dd>none</dd>
+                    <dt>DATA REG.</dt>
+                    <dd>10/05/2017</dd>
+                    <dt>DATA FAT</dt>
+                    <dd>20/05</dd>
+                </dl>
+            </div>
+        </div>
+        <table class="table table-hover table-info">
+            <thead>
+                <tr>
+                    <th>$</th>
+                    <th>Limite Crédito</th>
+                    <th>Utilizado</th>
+                    <th>Disponível</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>VC</td>
+                    <td contenteditable="true">12</td>
+                    <td contenteditable="true">8</td>
+                    <td contenteditable="true">2</td>
+                </tr>
+                <tr>
+                    <td>VCMAIS</td>
+                    <td contenteditable="true">5</td>
+                    <td contenteditable="true">3</td>
+                    <td contenteditable="true">1</td>
+                </tr>
+            </tbody>
+        </table>
+    </panel>
+    <panel title="ÚLTIMAS INTERAÇÕES" icon="fa-exchange" height="50" col="4" size="sm">
+        <table class="table table-hover">
+            <!-- <caption>Monthly Kills</caption> -->
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>DATA/HORA</th>
+                    <th>STATUS</th>
+                    <th class="width-max-50">RESUMO</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="interacao in interacoes | filter:filtro2">
+                    <!-- <td contenteditable="true">12</td> -->
+                    <td>{{interacao.id}}</td>
+                    <td>{{interacao.data}}</td>
+                    <td>{{interacao.status}}</td>
+                    <td class="width-max-50">{{interacao.resumo}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </panel>
+    <panel title="ÚLTIMAS PESQUISAS" icon="fa-search" height="50" col="4" size="sm" panelclass="panel-success">
+        <table class="table table-hover">
+            <!-- <caption>Monthly Kills</caption> -->
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Data</th>
+                    <th>Resumo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pesquisa in pesquisas | filter:filtro3">
+                    <!-- <td contenteditable="true">12</td> -->
+                    <td>{{pesquisa.id}}</td>
+                    <td>{{pesquisa.data}}</td>
+                    <td>{{pesquisa.resumo}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </panel>
+</div>
+<div class="row">
+    <panel title="ÚLTIMAS COTAÇÕES/ PEDIDOS" icon="fa-file-text-o" height="50" col="4" panelclass="panel-info" size="sm">
+        <div class="input-group input-group-sm">
+            <span class="input-group-addon" id="sizing-addon2"><i class="fa fa-search"
+                                                                          aria-hidden="true"></i></span>
+            <input type="text" class="form-control" placeholder="busca processos" aria-describedby="sizing-addon1" ng-model="filtro1">
+        </div>
+        <table class="table table-hover">
+            <!-- <caption>Monthly Kills</caption> -->
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Data/hora</th>
+                    <th>Status</th>
+                    <th class="width-max-50">ITENS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pedido in pedidos | filter:filtro1">
+                    <!-- <td contenteditable="true">12</td> -->
+                    <td>{{pedido.id}}</td>
+                    <td>{{pedido.data}}</td>
+                    <td>{{pedido.status}}</td>
+                    <td class="width-max-50">{{pedido.resumo}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </panel>
+    <panel title="FATURAMENTO POR TONELADA" icon="fa-truck" height="50" col="4" size="sm" panelclass="panel-warning">
+        <table class="table table-hover">
+            <!-- <caption>Monthly Kills</caption> -->
+            <thead>
+                <tr>
+                    <th>Produto</th>
+                    <th>Média</th>
+                    <th>Variação</th>
+                    <th>M1</th>
+                    <th>M2</th>
+                    <th>M3</th>
+                    <th>M4</th>
+                    <th>M5</th>
+                    <th>M6</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="fatura in faturaTon | filter:filtro1">
+                    <td>{{fatura.produto}}</td>
+                    <td>{{(fatura.m1 + fatura.m2 + fatura.m3 + fatura.m4 + fatura.m5 + fatura.m6)/6 | number : 1}}</td>
+                    <td>{{(fatura.m6 - fatura.m1)}}</td>
+                    <td>{{fatura.m1}}</td>
+                    <td>{{fatura.m2}}</td>
+                    <td>{{fatura.m3}}</td>
+                    <td>{{fatura.m4}}</td>
+                    <td>{{fatura.m5}}</td>
+                    <td>{{fatura.m6}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </panel>
+    <panel title="FATURAMENTO POR QUANTIDADE" icon="fa-hashtag" height="50" col="4" panelclass="panel-warning" size="sm">
+        <c3chart bindto-id="stacked-bar-plot1-chart" chart-data="dadosGraficos" chart-columns="dadosGraficosColunas" chart-x="datax">
+            <chart-size chart-height="160" />
+            <chart-axes values-x="x" />
+            <chart-axis>
+                <chart-axis-x axis-position="outer-center" axis-label="Dados Mercado" axis-type="category" />
+            </chart-axis>
+            <chart-bar ratio="0.8" />
+        </c3chart>
+    </panel>
+</div>
