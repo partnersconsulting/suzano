@@ -7,8 +7,8 @@ angular.module("App.controllers", [])
             { name: "Ofertas", enable: true },
             { name: "Últimas Cotações / Pedidos", enable: true },
             { name: "Faturamento por Tonelada", enable: true },
-            { name: "Materiais Recomendados", enable: true },
-            { name: "Faturamento por Quantidade", enable: false }
+            { name: "Materiais Recomendados", enable: false },
+            { name: "Faturamento por Quantidade", enable: true }
         ];
 
 
